@@ -37,4 +37,5 @@ def detect_objects():
         return {"error": str(e)}, 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    port = int(os.environ.get('PORT', 5000))  # Se 'PORT' non è impostata, usa 5000 come fallback
+    app.run(host='0.0.0.0', port=port)
