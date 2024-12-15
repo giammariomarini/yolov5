@@ -4,8 +4,11 @@ import os
 import io
 from PIL import Image
 
+
+
 # Inizializza il modello YOLOv5
-model = torch.hub.load("ultralytics/yolov5", "yolov5s")  # or yolov5n - yolov5x6, custom
+#model = torch.hub.load("ultralytics/yolov5", "yolov5s")  # or yolov5n - yolov5x6, custom
+model = torch.hub.load('.', 'custom', 'yolov5s.pt', source='local')  # local repo
 
 app = Flask(__name__)
 
@@ -25,8 +28,8 @@ def detect_objects():
 
         # Salva l'immagine elaborata in memoria
         results_dir = "runs/detect"  # YOLOv5 salva qui per default
-        results.save()  # Salva l'immagine con i rilevamenti
-
+        results.save(exist_ok=True)  # Salva l'immagine con i rilevamenti sempre sullo stesso file (exist_ok=true)
+        
         # Trova la sottodirectory più recente
         latest_exp_dir = max([os.path.join(results_dir, d) for d in os.listdir(results_dir)], key=os.path.getmtime)
 
